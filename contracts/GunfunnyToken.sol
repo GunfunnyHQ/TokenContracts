@@ -68,10 +68,10 @@ interface IBPContract {
 
 contract GunfunnyToken is ERC20, ERC20Burnable, Pausable, TwoPhaseOwnable {
 
-	uint256 public startTime;
-	uint256 public endTime;
-	uint256 public maxAmount;
-	address public LPAddress;
+    uint256 public startTime;
+    uint256 public endTime;
+    uint256 public maxAmount;
+    address public LPAddress;
     mapping (address => bool) listingBlacklisted;
     mapping (address => uint256) lastBuy;
 
