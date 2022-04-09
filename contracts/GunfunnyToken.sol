@@ -108,18 +108,18 @@ contract GunfunnyToken is ERC20, ERC20Burnable, Pausable, TwoPhaseOwnable {
         }
     }
 
-	function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
-		if (msg.sender == LPAddress) {
-            require(block.timestamp >= startTime, "GFY: Not yet open for trading");
-            require(!listingBlacklisted[recipient], "GFY: This recipient was blacklisted!");
-            if (block.timestamp < endTime) {
-			    require(amount <= maxAmount, 'GFY: maxAmount exceed listing!');
-                require(lastBuy[recipient] != block.number, "GFY: You already purchased in this block!");
-                lastBuy[recipient] = block.number;
+        function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+            if (msg.sender == LPAddress) {
+                require(block.timestamp >= startTime, "GFY: Not yet open for trading");
+                require(!listingBlacklisted[recipient], "GFY: This recipient was blacklisted!");
+                if (block.timestamp < endTime) {
+                    require(amount <= maxAmount, 'GFY: maxAmount exceed listing!');
+                    require(lastBuy[recipient] != block.number, "GFY: You already purchased in this block!");
+                    lastBuy[recipient] = block.number;
+                }
             }
-		}
-		_transfer(_msgSender(), recipient, amount);
-		return true;
-	}
+            _transfer(_msgSender(), recipient, amount);
+            return true;
+        }
 
 }
